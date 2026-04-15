@@ -5,8 +5,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 //Configuração do banco SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
-    // Cria um arquivo local chamado app.db
-    options.UseSqlite("Data Source=app.db")
+    // Cria um arquivo local chamado parkFlow.db
+    options.UseSqlite("Data Source=parkFlow.db")
 );
 
 builder.Services.AddControllers();

@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using webApi.Features.Company.Models;
+using webApi.Features.User.Models;
 
 namespace webApi.Data
 {
@@ -11,5 +13,7 @@ namespace webApi.Data
             : base(options) { }
 
         //Aqui vai ficar as entidade do banco
+        public DbSet<Company> Company { get; set; }
+        public DbSet<User> User { get; set; }
     }
 }
