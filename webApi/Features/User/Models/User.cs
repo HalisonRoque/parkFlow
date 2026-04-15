@@ -18,9 +18,7 @@ namespace webApi.Features.User.Models
         [Required]
         public int Age { get; set; }
 
-        /*CHAVE ESTRANGEIRA, REFERENCIANDO A UMA EMPRESA CADASTRADA
-        RELACIONAMENTO (1:1)
-        */
+        /*CHAVE ESTRANGEIRA, REFERENCIANDO A UMA EMPRESA CADASTRADA*/
         [Required]
         public int CompanyId { get; set; }
         public CompanyEntity Company { get; set; } = null!;

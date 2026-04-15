@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using webApi.Features.Company.Models;
+using webApi.Features.ParkingSpot.Models;
+using webApi.Features.Payment.Models;
+using webApi.Features.Ticket.Models;
 using webApi.Features.User.Models;
+using webApi.Features.Vehicle.Models;
 
 namespace webApi.Data
 {
@@ -15,5 +19,9 @@ namespace webApi.Data
         //Aqui vai ficar as entidade do banco
         public DbSet<Company> Company { get; set; }
         public DbSet<User> User { get; set; }
+        public DbSet<Vehicle> Vehicle { get; set; }
+        public DbSet<Ticket> Ticket { get; set; }
+        public DbSet<ParkingSpot> Parking_Spot { get; set; }
+        public DbSet<Payment> Payment { get; set; }
     }
 }
