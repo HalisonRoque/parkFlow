@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using CompanyEntity = webApi.Features.Company.Models.Company;
 using ParkingSpotEntity = webApi.Features.ParkingSpot.Models.ParkingSpot;
 using VehicleEntity = webApi.Features.Vehicle.Models.Vehicle;
 
@@ -23,9 +22,5 @@ namespace webApi.Features.Ticket.Models
         [Required]
         public int ParkingSpotId { get; set; }
         public ParkingSpotEntity ParkingSpot { get; set; } = null!;
-
-        [Required]
-        public int CompanyId { get; set; }
-        public CompanyEntity Company { get; set; } = null!;
     }
 }

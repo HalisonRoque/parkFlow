@@ -1,5 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using CompanyEntity = webApi.Features.Company.Models.Company;
+using ClientEntity = webApi.Features.Client.Models.Client;
 
 namespace webApi.Features.Vehicle.Models
 {
@@ -16,7 +16,7 @@ namespace webApi.Features.Vehicle.Models
         public string Model { get; set; } = string.Empty;
 
         [Required]
-        public int CompanyId { get; set; }
-        public CompanyEntity Company { get; set; } = null!;
+        public int ClientId { get; set; }
+        public ClientEntity Client { get; set; } = null!;
     }
 }

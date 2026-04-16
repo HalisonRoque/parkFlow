@@ -1,8 +1,9 @@
 using System.ComponentModel.DataAnnotations;
+using UserEntity = webApi.Features.User.Models.User;
 
-namespace webApi.Features.Company.Models
+namespace webApi.Features.Client.Models
 {
-    public class Company
+    public class Client
     {
         public int Id { get; set; }
 
@@ -12,14 +13,14 @@ namespace webApi.Features.Company.Models
 
         [Required]
         [MaxLength(100)]
-        public string Code { get; set; } = string.Empty;
-
-        [Required]
-        [MaxLength(20)]
-        public string Cnpj { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
 
         [Required]
         [MaxLength(200)]
         public string Address { get; set; } = string.Empty;
+
+        [Required]
+        public int UserId { get; set; }
+        public UserEntity User { get; set; } = null!;
     }
 }

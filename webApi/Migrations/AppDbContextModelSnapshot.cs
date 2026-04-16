@@ -17,7 +17,7 @@ namespace webApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
 
-            modelBuilder.Entity("webApi.Features.Company.Models.Company", b =>
+            modelBuilder.Entity("webApi.Features.Client.Models.Client", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -28,12 +28,7 @@ namespace webApi.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Cnpj")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("TEXT");
-
-                    b.Property<string>("Code")
+                    b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
@@ -43,9 +38,14 @@ namespace webApi.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("webApi.Features.ParkingSpot.Models.ParkingSpot", b =>
@@ -58,15 +58,10 @@ namespace webApi.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<bool>("IsOccupied")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
 
                     b.ToTable("Parking_Spot");
                 });
@@ -79,9 +74,6 @@ namespace webApi.Migrations
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("TEXT");
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("TEXT");
@@ -96,20 +88,15 @@ namespace webApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
-
                     b.HasIndex("TicketId");
 
-                    b.ToTable("Payments");
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("webApi.Features.Ticket.Models.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("EntryTime")
@@ -129,13 +116,11 @@ namespace webApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
-
                     b.HasIndex("ParkingSpotId");
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Ticket");
                 });
 
             modelBuilder.Entity("webApi.Features.User.Models.User", b =>
@@ -145,9 +130,6 @@ namespace webApi.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Age")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<int>("CompanyId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Email")
@@ -162,9 +144,7 @@ namespace webApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("Users");
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("webApi.Features.Vehicle.Models.Vehicle", b =>
@@ -173,7 +153,7 @@ namespace webApi.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("CompanyId")
+                    b.Property<int>("ClientId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Model")
@@ -188,49 +168,35 @@ namespace webApi.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CompanyId");
+                    b.HasIndex("ClientId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicle");
                 });
 
-            modelBuilder.Entity("webApi.Features.ParkingSpot.Models.ParkingSpot", b =>
+            modelBuilder.Entity("webApi.Features.Client.Models.Client", b =>
                 {
-                    b.HasOne("webApi.Features.Company.Models.Company", "Company")
+                    b.HasOne("webApi.Features.User.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("CompanyId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("webApi.Features.Payment.Models.Payment", b =>
                 {
-                    b.HasOne("webApi.Features.Company.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("webApi.Features.Ticket.Models.Ticket", "Ticket")
                         .WithMany()
                         .HasForeignKey("TicketId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
-
                     b.Navigation("Ticket");
                 });
 
             modelBuilder.Entity("webApi.Features.Ticket.Models.Ticket", b =>
                 {
-                    b.HasOne("webApi.Features.Company.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("webApi.Features.ParkingSpot.Models.ParkingSpot", "ParkingSpot")
                         .WithMany()
                         .HasForeignKey("ParkingSpotId")
@@ -243,33 +209,20 @@ namespace webApi.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
-
                     b.Navigation("ParkingSpot");
 
                     b.Navigation("Vehicle");
                 });
 
-            modelBuilder.Entity("webApi.Features.User.Models.User", b =>
-                {
-                    b.HasOne("webApi.Features.Company.Models.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("webApi.Features.Vehicle.Models.Vehicle", b =>
                 {
-                    b.HasOne("webApi.Features.Company.Models.Company", "Company")
+                    b.HasOne("webApi.Features.Client.Models.Client", "Client")
                         .WithMany()
-                        .HasForeignKey("CompanyId")
+                        .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Company");
+                    b.Navigation("Client");
                 });
 #pragma warning restore 612, 618
         }

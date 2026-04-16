@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using CompanyEntity = webApi.Features.Company.Models.Company;
 using TicketEntity = webApi.Features.Ticket.Models.Ticket;
 
 namespace webApi.Features.Payment.Models
@@ -21,9 +20,5 @@ namespace webApi.Features.Payment.Models
 
         [Required]
         public DateTime CreatedAt { get; set; }
-
-        [Required]
-        public int CompanyId { get; set; }
-        public CompanyEntity Company { get; set; } = null!;
     }
 }

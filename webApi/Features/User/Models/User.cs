@@ -1,5 +1,4 @@
 using System.ComponentModel.DataAnnotations;
-using CompanyEntity = webApi.Features.Company.Models.Company;
 
 namespace webApi.Features.User.Models
 {
@@ -17,10 +16,5 @@ namespace webApi.Features.User.Models
 
         [Required]
         public int Age { get; set; }
-
-        /*CHAVE ESTRANGEIRA, REFERENCIANDO A UMA EMPRESA CADASTRADA*/
-        [Required]
-        public int CompanyId { get; set; }
-        public CompanyEntity Company { get; set; } = null!;
     }
 }

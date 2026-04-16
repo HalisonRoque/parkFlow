@@ -12,87 +12,79 @@ namespace webApi.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Companies",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Code = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Cnpj = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    Address = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Companies", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Parking_Spot",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<string>(type: "TEXT", nullable: false),
-                    IsOccupied = table.Column<bool>(type: "INTEGER", nullable: false),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    IsOccupied = table.Column<bool>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Parking_Spot", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Parking_Spot_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 80, nullable: false),
                     Email = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
-                    Age = table.Column<int>(type: "INTEGER", nullable: false),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    Age = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Id);
+                    table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Client",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Name = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    Address = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    UserId = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Client", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Users_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
+                        name: "FK_Client_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Vehicles",
+                name: "Vehicle",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Plate = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
                     Model = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ClientId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Vehicles", x => x.Id);
+                    table.PrimaryKey("PK_Vehicle", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Vehicles_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
+                        name: "FK_Vehicle_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Tickets",
+                name: "Ticket",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -101,34 +93,27 @@ namespace webApi.Migrations
                     ExitTime = table.Column<DateTime>(type: "TEXT", nullable: true),
                     TotalPrice = table.Column<decimal>(type: "TEXT", nullable: true),
                     VehicleId = table.Column<int>(type: "INTEGER", nullable: false),
-                    ParkingSpotId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    ParkingSpotId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tickets", x => x.Id);
+                    table.PrimaryKey("PK_Ticket", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Tickets_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Tickets_Parking_Spot_ParkingSpotId",
+                        name: "FK_Ticket_Parking_Spot_ParkingSpotId",
                         column: x => x.ParkingSpotId,
                         principalTable: "Parking_Spot",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tickets_Vehicles_VehicleId",
+                        name: "FK_Ticket_Vehicle_VehicleId",
                         column: x => x.VehicleId,
-                        principalTable: "Vehicles",
+                        principalTable: "Vehicle",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payments",
+                name: "Payment",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
@@ -136,87 +121,65 @@ namespace webApi.Migrations
                     Amount = table.Column<decimal>(type: "TEXT", nullable: false),
                     Method = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     TicketId = table.Column<int>(type: "INTEGER", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    CompanyId = table.Column<int>(type: "INTEGER", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Payments", x => x.Id);
+                    table.PrimaryKey("PK_Payment", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Payments_Companies_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Companies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Payments_Tickets_TicketId",
+                        name: "FK_Payment_Ticket_TicketId",
                         column: x => x.TicketId,
-                        principalTable: "Tickets",
+                        principalTable: "Ticket",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Parking_Spot_CompanyId",
-                table: "Parking_Spot",
-                column: "CompanyId");
+                name: "IX_Client_UserId",
+                table: "Client",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Payments_CompanyId",
-                table: "Payments",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Payments_TicketId",
-                table: "Payments",
+                name: "IX_Payment_TicketId",
+                table: "Payment",
                 column: "TicketId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_CompanyId",
-                table: "Tickets",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Tickets_ParkingSpotId",
-                table: "Tickets",
+                name: "IX_Ticket_ParkingSpotId",
+                table: "Ticket",
                 column: "ParkingSpotId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tickets_VehicleId",
-                table: "Tickets",
+                name: "IX_Ticket_VehicleId",
+                table: "Ticket",
                 column: "VehicleId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_CompanyId",
-                table: "Users",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Vehicles_CompanyId",
-                table: "Vehicles",
-                column: "CompanyId");
+                name: "IX_Vehicle_ClientId",
+                table: "Vehicle",
+                column: "ClientId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Payments");
+                name: "Payment");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
-                name: "Tickets");
+                name: "Ticket");
 
             migrationBuilder.DropTable(
                 name: "Parking_Spot");
 
             migrationBuilder.DropTable(
-                name: "Vehicles");
+                name: "Vehicle");
 
             migrationBuilder.DropTable(
-                name: "Companies");
+                name: "Client");
+
+            migrationBuilder.DropTable(
+                name: "User");
         }
     }
 }
