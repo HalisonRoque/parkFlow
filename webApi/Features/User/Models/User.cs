@@ -16,5 +16,9 @@ namespace webApi.Features.User.Models
 
         [Required]
         public int Age { get; set; }
+
+        [Required]
+        [MaxLength(200)]
+        public string PasswordHash { get; set; } = string.Empty;
     }
 }

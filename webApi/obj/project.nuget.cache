@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "uKMPsyq3ge4=",
+  "dgSpecHash": "BeNLBEJQuDs=",
   "success": true,
   "projectFilePath": "C:\\Users\\halis\\OneDrive\\Área de Trabalho\\parkFlow\\webApi\\webApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\halis\\.nuget\\packages\\bcrypt.net-next\\4.1.0\\bcrypt.net-next.4.1.0.nupkg.sha512",
     "C:\\Users\\halis\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\halis\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.25\\microsoft.aspnetcore.openapi.8.0.25.nupkg.sha512",
     "C:\\Users\\halis\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
