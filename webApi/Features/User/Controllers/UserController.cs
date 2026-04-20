@@ -8,9 +8,9 @@ namespace webApi.Features.User.Controllers
     [Route("api/user")]
     public class UserController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly UserService _userService;
 
-        public UserController(IUserService userService)
+        public UserController(UserService userService)
         {
             _userService = userService;
         }
@@ -23,7 +23,7 @@ namespace webApi.Features.User.Controllers
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateResult([FromBody] CreateUserDto body)
+        public async Task<IActionResult> CreateUser([FromBody] CreateUserDto body)
         {
             var user = await _userService.CreateUserAsync(body);
             return Ok(user);

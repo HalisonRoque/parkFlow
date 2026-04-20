@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using webApi.Features.Auth.Dtos;
 using webApi.Features.Auth.Services;
-using webApi.Features.User.Dtos;
-using webApi.Features.User.Repository;
 
 namespace webApi.Features.Auth.Controllers
 {
@@ -10,12 +8,10 @@ namespace webApi.Features.Auth.Controllers
     [Route("api/auth")]
     public class AuthController : ControllerBase
     {
-        private readonly IUserRepository _userRepository;
         private readonly AuthService _authService;
 
-        public AuthController(IUserRepository repo, AuthService authService)
+        public AuthController(AuthService authService)
         {
-            _userRepository = repo;
             _authService = authService;
         }
 

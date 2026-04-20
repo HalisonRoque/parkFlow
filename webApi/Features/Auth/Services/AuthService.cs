@@ -53,7 +53,7 @@ namespace webApi.Features.Auth.Services
                         new Claim("id", user.Id.ToString()),
                     }
                 ),
-                Expires = DateTime.UtcNow.AddHours(2),
+                Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = credentials,
                 Issuer = _config["Jwt:Issuer"],
                 Audience = _config["Jwt:Audience"],

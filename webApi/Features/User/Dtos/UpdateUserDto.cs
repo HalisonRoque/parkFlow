@@ -12,6 +12,7 @@ namespace webApi.Features.User.Dtos
         [EmailAddress(ErrorMessage = "O formato do e-mail é inválido.")]
         public string Email { get; set; } = string.Empty;
 
+        [Range(1, 120, ErrorMessage = "A idade deve estar entre 1 e 120 anos.")]
         public int Age { get; set; }
 
         [Required(ErrorMessage = "A senha é obrigatória.")]

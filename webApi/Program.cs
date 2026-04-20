@@ -76,7 +76,6 @@ builder
     });
 
 builder.Services.AddScoped<AuthService>();
-
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
