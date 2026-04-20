@@ -28,6 +28,11 @@ namespace webApi.Features.User.Repository
             return await _context.User.FirstOrDefaultAsync(u => u.Name == name);
         }
 
+        public async Task<UserEntity?> GetUserByEmailAsync(string email)
+        {
+            return await _context.User.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public async Task<UserEntity> CreateUserAsync(UserEntity user)
         {
             _context.User.Add(user);

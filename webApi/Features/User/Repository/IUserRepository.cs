@@ -9,6 +9,8 @@ namespace webApi.Features.User.Repository
 
         Task<UserEntity?> GetUserByNameAsync(string name);
 
+        Task<UserEntity?> GetUserByEmailAsync(string email);
+
         Task<UserEntity> CreateUserAsync(UserEntity user);
 
         Task<UserEntity> UpdateUserAsync(UserEntity user);

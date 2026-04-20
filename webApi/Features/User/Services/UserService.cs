@@ -23,7 +23,7 @@ namespace webApi.Features.User.Services
                 {
                     Id = u.Id,
                     Name = u.Name,
-                    Email = u.Name,
+                    Email = u.Email,
                     Age = u.Age,
                 })
                 .ToList();

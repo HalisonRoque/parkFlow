@@ -33,7 +33,8 @@ namespace webApi.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", maxLength: 80, nullable: false),
                     Email = table.Column<string>(type: "TEXT", maxLength: 120, nullable: false),
-                    Age = table.Column<int>(type: "INTEGER", nullable: false)
+                    Age = table.Column<int>(type: "INTEGER", nullable: false),
+                    PasswordHash = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false)
                 },
                 constraints: table =>
                 {

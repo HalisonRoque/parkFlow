@@ -11,7 +11,7 @@ using webApi.Data;
 namespace webApi.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260416165831_InitialCreateTables")]
+    [Migration("20260420145241_InitialCreateTables")]
     partial class InitialCreateTables
     {
         /// <inheritdoc />
@@ -143,6 +143,11 @@ namespace webApi.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(80)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
