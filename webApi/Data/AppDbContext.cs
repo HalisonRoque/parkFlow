@@ -23,5 +23,12 @@ namespace webApi.Data
         public DbSet<Ticket> Ticket { get; set; }
         public DbSet<ParkingSpot> Parking_Spot { get; set; }
         public DbSet<Payment> Payment { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
+        }
     }
 }

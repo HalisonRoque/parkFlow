@@ -5,6 +5,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using webApi.Data;
 using webApi.Features.Auth.Services;
+using webApi.Features.Ticket.Repository;
+using webApi.Features.Ticket.Services;
 using webApi.Features.User.Repository;
 using webApi.Features.User.Services;
 
@@ -78,6 +80,8 @@ builder
 builder.Services.AddScoped<AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ITicketService, TicketService>();
+builder.Services.AddScoped<ITicketRepository, TicketRepository>();
 
 var app = builder.Build();
 

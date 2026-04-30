@@ -10,10 +10,12 @@ namespace webApi.Features.User.Services
 
         Task<ResponseUserDto?> GetUserByNameAsync(string name);
 
+        Task<ResponseUserDto?> GetUserByEmailAsync(string email);
+
         Task<ResponseUserDto> CreateUserAsync(CreateUserDto user);
 
-        Task<ResponseUserDto> UpdateUserAsync(UpdateUserDto user);
+        Task<ResponseUserDto> UpdateUserAsync(int id, UpdateUserDto user);
 
-        Task DeleteUserAsync(ResponseUserDto user);
+        Task DeleteUserAsync(int id);
     }
 }

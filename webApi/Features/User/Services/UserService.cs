@@ -29,6 +29,60 @@ namespace webApi.Features.User.Services
                 .ToList();
         }
 
+        public async Task<ResponseUserDto?> GetUserByIdAsync(int id)
+        {
+            var findUser = await _userRepository.GetUserByIdAsync(id);
+
+            if (findUser == null)
+            {
+                throw new Exception("usuário não encontrado");
+            }
+
+            return new ResponseUserDto
+            {
+                Id = findUser.Id,
+                Name = findUser.Name,
+                Email = findUser.Email,
+                Age = findUser.Age,
+            };
+        }
+
+        public async Task<ResponseUserDto?> GetUserByNameAsync(string name)
+        {
+            var findUser = await _userRepository.GetUserByNameAsync(name);
+
+            if (findUser == null)
+            {
+                throw new Exception("Usuário não encontrado");
+            }
+
+            return new ResponseUserDto
+            {
+                Id = findUser.Id,
+                Name = findUser.Name,
+                Email = findUser.Email,
+                Age = findUser.Age,
+            };
+        }
+
+        public async Task<ResponseUserDto?> GetUserByEmailAsync(string email)
+        {
+            var findUser = await _userRepository.GetUserByEmailAsync(email);
+
+            if (findUser == null)
+            {
+                throw new Exception("Usuário não encontrado");
+            }
+
+            return new ResponseUserDto
+            {
+                Id = findUser.Id,
+                Name = findUser.Name,
+                Email = findUser.Email,
+                Age = findUser.Age,
+            };
+        }
+
         public async Task<ResponseUserDto> CreateUserAsync(CreateUserDto dto)
         {
             var passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password);
@@ -52,24 +106,40 @@ namespace webApi.Features.User.Services
             };
         }
 
-        public Task<ResponseUserDto?> GetUserByIdAsync(int id)
+        public async Task<ResponseUserDto> UpdateUserAsync(int id, UpdateUserDto user)
         {
-            throw new NotImplementedException();
+            var updateUser = await _userRepository.GetUserByIdAsync(id);
+
+            if (updateUser == null)
+            {
+                throw new Exception("Usuário não encontrado");
+            }
+
+            updateUser.Name = user.Name;
+            updateUser.Email = user.Email;
+            updateUser.Age = user.Age;
+
+            await _userRepository.UpdateUserAsync(updateUser);
+
+            return new ResponseUserDto
+            {
+                Id = updateUser.Id,
+                Name = updateUser.Name,
+                Email = updateUser.Email,
+                Age = updateUser.Age,
+            };
         }
 
-        public Task<ResponseUserDto?> GetUserByNameAsync(string name)
+        public async Task DeleteUserAsync(int id)
         {
-            throw new NotImplementedException();
-        }
+            var deleteUser = await _userRepository.GetUserByIdAsync(id);
 
-        public Task<ResponseUserDto> UpdateUserAsync(UpdateUserDto user)
-        {
-            throw new NotImplementedException();
-        }
+            if (deleteUser == null)
+            {
+                throw new Exception("Usuário não encontrado");
+            }
 
-        public Task DeleteUserAsync(ResponseUserDto user)
-        {
-            throw new NotImplementedException();
+            await _userRepository.DeleteUserAsync(deleteUser);
         }
     }
 }
