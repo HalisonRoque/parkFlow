@@ -9,6 +9,8 @@ using webApi.Features.Ticket.Repository;
 using webApi.Features.Ticket.Services;
 using webApi.Features.User.Repository;
 using webApi.Features.User.Services;
+using webApi.Features.Vehicle.Repository;
+using webApi.Features.Vehicle.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -82,6 +84,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITicketService, TicketService>();
 builder.Services.AddScoped<ITicketRepository, TicketRepository>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
 
 var app = builder.Build();
 
